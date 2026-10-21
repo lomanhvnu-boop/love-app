@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúng ta 💕</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>{{ your_name }} & {{ her_name }}</h1>
+        <p class="subtitle">Đã yêu nhau được</p>
+
+        <div class="counter">
+            <span class="number">{{ days }}</span>
+            <span class="unit">ngày</span>
+        </div>
+
+        <p class="detail">~ tức là {{ hours }} giờ, {{ minutes }} phút ~</p>
+
+        {% if images %}
+        <div class="gallery">
+            {% for img in images %}
+                <img src="{{ url_for('static', filename='images/' + img) }}" alt="Kỷ niệm">
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if has_music %}
+        <div class="music">
+            <p>🎵 Nhấn play để nghe nhạc của chúng ta</p>
+            <audio controls loop>
+                <source src="{{ url_for('static', filename='music/song.mp3') }}" type="audio/mpeg">
+            </audio>
+        </div>
+        {% endif %}
+
+        <p class="footer">Made with ❤️ by {{ your_name }}</p>
+    </div>
+</body>
+</html>
