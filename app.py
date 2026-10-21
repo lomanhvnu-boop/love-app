@@ -12,12 +12,6 @@ HER_NAME = "Emiu"
 
 @app.route("/")
 def home():
-from datetime import datetime # Thêm dòng này ở trên cùng nếu chưa có
-
-# ... (các code khác) ...
-
-@app.route("/")
-def home():
     # Lấy ngày hiện tại
     today = date.today()
     delta = today - START_DATE
