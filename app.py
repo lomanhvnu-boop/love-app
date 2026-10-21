@@ -54,8 +54,12 @@ def gallery():
 # === ĐƯỜNG DẪN 2: GÓC THƯ TAY ===
 @app.route("/thu-tay")
 def letters():
-    return render_template("letters.html", your_name=YOUR_NAME, her_name=HER_NAME)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    letter_folder = os.path.join(app.static_folder, "letters")
+    letter_images = []
+    if os.path.exists(letter_folder):
+        # Lấy tất cả file ảnh trong thư mục letters (tự động sắp xếp theo tên)
+        letter_images = sorted([
+            f for f in os.listdir(letter_folder)
+            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
+        ])
+    return render_template("letters.html", images=letter_images, your_name=YOUR_NAME, her_name=HER_NAME)
