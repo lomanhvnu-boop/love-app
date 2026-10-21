@@ -9,21 +9,23 @@ body {
     align-items: center;
     padding: 20px;
     color: #4a2c3a;
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang do tim bay */
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 40px 30px;
-    max-width: 600px;
+    max-width: 700px; /* Rộng hơn để chứa ảnh */
     width: 100%;
     text-align: center;
     box-shadow: 0 20px 60px rgba(255, 105, 135, 0.3);
+    z-index: 10; /* Nằm trên các trái tim bay */
 }
 
 .heart {
-    font-size: 5em;
+    font-size: 4em;
     display: inline-block;
     animation: beat 1.2s infinite;
 }
@@ -35,17 +37,17 @@ body {
 
 h1 {
     font-size: 2.2em;
-    margin: 20px 0 10px;
+    margin: 10px 0;
     background: linear-gradient(135deg, #e94e77, #ff6b9d);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .subtitle { font-size: 1.1em; color: #888; margin-bottom: 15px; }
-.counter { margin: 20px 0; }
+.counter { margin: 15px 0; }
 
 .number {
-    font-size: 5em;
+    font-size: 4.5em;
     font-weight: 900;
     display: block;
     line-height: 1;
@@ -57,32 +59,53 @@ h1 {
 .unit { font-size: 1.5em; color: #e94e77; font-weight: 600; }
 .detail { color: #999; font-size: 0.95em; margin-bottom: 25px; }
 
+/* Trang trí khung ảnh */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
     margin: 25px 0;
+    padding: 10px;
+    border-top: 2px dashed #ffb6c1;
+    padding-top: 25px;
 }
 
 .gallery img {
-    width: 100%; height: 120px; object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.gallery img:hover { transform: scale(1.05) rotate(2deg); }
-
-.music {
-    margin: 25px 0; padding: 15px;
-    background: rgba(255, 182, 193, 0.3);
+    width: 100%; 
+    height: 150px; 
+    object-fit: cover;
     border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid white;
 }
 
-.music p { margin-bottom: 10px; color: #c44569; font-size: 0.95em; }
-audio { width: 100%; max-width: 350px; }
+/* Hiệu ứng khi di chuột vào ảnh */
+.gallery img:hover {
+    transform: scale(1.08) rotate(3deg);
+    box-shadow: 0 10px 25px rgba(233, 78, 119, 0.4);
+    z-index: 2;
+    position: relative;
+}
 
-.footer {
-    margin-top: 30px; color: #b08898;
-    font-size: 0.9em; font-style: italic;
+.footer { margin-top: 20px; color: #b08898; font-size: 0.9em; font-style: italic; }
+
+/* --- CSS CHO HIỆU ỨNG TRÁI TIM BAY --- */
+#heart-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; /* Để chuột có thể click xuyên qua trái tim */
+    z-index: 1;
+}
+
+.falling-heart {
+    position: absolute;
+    top: -50px;
+    animation: fall linear forwards;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    to { transform: translateY(105vh) rotate(360deg); }
 }

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Hiệu ứng trái tim bay lả tả -->
+    <div id="heart-container"></div>
+
     <div class="container">
         <div class="heart">❤️</div>
         <h1>{{ your_name }} & {{ her_name }}</h1>
@@ -19,6 +22,7 @@
 
         <p class="detail">~ tức là {{ hours }} giờ, {{ minutes }} phút ~</p>
 
+        <!-- Phần hiển thị ảnh kỷ niệm -->
         {% if images %}
         <div class="gallery">
             {% for img in images %}
@@ -27,16 +31,24 @@
         </div>
         {% endif %}
 
-        {% if has_music %}
-        <div class="music">
-            <p>🎵 Nhấn play để nghe nhạc của chúng ta</p>
-            <audio controls loop>
-                <source src="{{ url_for('static', filename='music/song.mp3') }}" type="audio/mpeg">
-            </audio>
-        </div>
-        {% endif %}
-
         <p class="footer">Made with ❤️ by {{ your_name }}</p>
     </div>
+
+    <!-- Code JavaScript tạo hiệu ứng tim bay -->
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerText = ['❤️', '💖', '💘', '💝'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // Tốc độ rơi
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px'; // Kích thước
+            document.getElementById('heart-container').appendChild(heart);
+            
+            // Xóa tim sau khi rơi xong để không bị nặng máy
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+        setInterval(createHeart, 400); // Tạo tim liên tục
+    </script>
 </body>
 </html>
