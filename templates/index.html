@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chúng ta 💕</title>
+    <!-- Nhúng Font chữ đẹp từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -11,16 +13,21 @@
 
     <div class="container">
         <div class="heart">❤️</div>
-        <h1>{{ your_name }} & {{ her_name }}</h1>
-        <p class="subtitle">Đã yêu nhau được</p>
+        
+        <!-- Tên sử dụng font viết tay -->
+        <h1 class="love-names">{{ your_name }} & {{ her_name }}</h1>
+        <p class="subtitle">Chúng ta đã bên nhau được</p>
 
-        <div class="counter">
-            <span class="number">{{ days }}</span>
-            <span class="unit">ngày</span>
+        <!-- Khung đồng hồ đếm thời gian thực -->
+        <div class="countdown-container" id="countdown">
+            <div class="time-box"><span id="years">0</span><span class="label">Năm</span></div>
+            <div class="time-box"><span id="months">0</span><span class="label">Tháng</span></div>
+            <div class="time-box"><span id="days">0</span><span class="label">Ngày</span></div>
+            <div class="time-box"><span id="hours">0</span><span class="label">Giờ</span></div>
+            <div class="time-box"><span id="minutes">0</span><span class="label">Phút</span></div>
+            <div class="time-box"><span id="seconds">0</span><span class="label">Giây</span></div>
         </div>
-        <p class="detail">~ tức là {{ hours }} giờ, {{ minutes }} phút ~</p>
 
-        <!-- CHỈ ĐỂ LẠI 2 NÚT BẤM DẪN LINK -->
         <div class="menu-buttons" style="margin: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
             <a href="/anh-ky-niem" class="letter-btn" style="background: #ff6b9d; color: white; border: none;">
                 📸 Thư viện ảnh chung
@@ -33,7 +40,37 @@
         <p class="footer">Made with ❤️ by {{ your_name }}</p>
     </div>
 
+    <!-- JavaScript tính toán thời gian thực -->
     <script>
+        // Lấy mốc thời gian bắt đầu từ Python truyền sang
+        const startDate = new Date("{{ start_datetime_str }}").getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = now - startDate;
+
+            // Tính toán năm, tháng, ngày, giờ, phút, giây
+            const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365.25));
+            const months = Math.floor((distance % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+            const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị ra màn hình (thêm số 0 ở trước nếu < 10)
+            document.getElementById("years").innerText = years;
+            document.getElementById("months").innerText = months;
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        // Cập nhật mỗi giây
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Gọi ngay lần đầu
+
+        // Hiệu ứng trái tim bay
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
