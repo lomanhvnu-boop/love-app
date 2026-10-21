@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Hiệu ứng trái tim bay lả tả -->
     <div id="heart-container"></div>
 
     <div class="container">
@@ -19,8 +18,9 @@
             <span class="number">{{ days }}</span>
             <span class="unit">ngày</span>
         </div>
-
         <p class="detail">~ tức là {{ hours }} giờ, {{ minutes }} phút ~</p>
+
+        <!-- CHỈ ĐỂ LẠI 2 NÚT BẤM DẪN LINK -->
         <div class="menu-buttons" style="margin: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
             <a href="/anh-ky-niem" class="letter-btn" style="background: #ff6b9d; color: white; border: none;">
                 📸 Thư viện ảnh chung
@@ -29,33 +29,22 @@
                 💌 Góc thư tay
             </a>
         </div>
-        <!-- Phần hiển thị ảnh kỷ niệm -->
-        {% if images %}
-        <div class="gallery">
-            {% for img in images %}
-                <img src="{{ url_for('static', filename='images/' + img) }}" alt="Kỷ niệm">
-            {% endfor %}
-        </div>
-        {% endif %}
 
         <p class="footer">Made with ❤️ by {{ your_name }}</p>
     </div>
 
-    <!-- Code JavaScript tạo hiệu ứng tim bay -->
     <script>
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
             heart.innerText = ['❤️', '💖', '💘', '💝'][Math.floor(Math.random() * 4)];
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // Tốc độ rơi
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px'; // Kích thước
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
             document.getElementById('heart-container').appendChild(heart);
-            
-            // Xóa tim sau khi rơi xong để không bị nặng máy
             setTimeout(() => { heart.remove(); }, 7000);
         }
-        setInterval(createHeart, 400); // Tạo tim liên tục
+        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
