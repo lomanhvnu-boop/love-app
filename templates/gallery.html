@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Ảnh kỷ niệm của chúng ta 💕</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 900px;">
+        <h1>Ảnh kỷ niệm</h1>
+        <p class="subtitle">Những khoảnh khắc {{ your_name }} & {{ her_name }}</p>
+
+        <div class="gallery-grid">
+            {% for img in images %}
+                <a href="{{ url_for('static', filename='images/' + img) }}" target="_blank">
+                    <img src="{{ url_for('static', filename='images/' + img) }}" alt="Kỷ niệm">
+                </a>
+            {% else %}
+                <p>Chưa có ảnh nào. Hãy thêm ảnh vào thư mục static/images nhé!</p>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="back-btn">← Về trang chủ</a>
+    </div>
+</body>
+</html>

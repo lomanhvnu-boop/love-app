@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Góc thư tay 💌</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 800px;">
+        <h1>Góc thư tay</h1>
+        <p class="subtitle">Những lời muốn nói gửi đến {{ her_name }}</p>
+
+        <div class="letters-list">
+            <!-- LÁ THƯ 1 -->
+            <div class="letter-card">
+                <h2>Lá thư số 1: Gửi ngày đầu tiên</h2>
+                <!-- Hiển thị ảnh thư tay -->
+                <img src="{{ url_for('static', filename='letters/thu1.jpg') }}" alt="Thư tay 1" class="letter-image">
+                <!-- Nút tải file Word -->
+                <a href="{{ url_for('static', filename='letters/tamthu1.docx') }}" download class="download-btn">
+                    ⬇️ Tải file Word gốc
+                </a>
+            </div>
+
+            <!-- LÁ THƯ 2 -->
+            <div class="letter-card">
+                <h2>Lá thư số 2: Lời cảm ơn</h2>
+                <img src="{{ url_for('static', filename='letters/thu2.jpg') }}" alt="Thư tay 2" class="letter-image">
+                <a href="{{ url_for('static', filename='letters/tamthu2.docx') }}" download class="download-btn">
+                    ⬇️ Tải file Word gốc
+                </a>
+            </div>
+            <!-- Bạn có thể copy khối div này để thêm nhiều lá thư hơn -->
+        </div>
+
+        <a href="/" class="back-btn">← Về trang chủ</a>
+    </div>
+</body>
+</html>

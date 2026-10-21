@@ -36,6 +36,25 @@ def home():
         images=images, has_music=has_music,
         your_name=YOUR_NAME, her_name=HER_NAME,
     )
+import os
+
+
+# === ĐƯỜNG DẪN 1: THƯ VIỆN ẢNH CHUNG ===
+@app.route("/anh-ky-niem")
+def gallery():
+    image_folder = os.path.join(app.static_folder, "images")
+    images = []
+    if os.path.exists(image_folder):
+        images = sorted([
+            f for f in os.listdir(image_folder)
+            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
+        ])
+    return render_template("gallery.html", images=images, your_name=YOUR_NAME, her_name=HER_NAME)
+
+# === ĐƯỜNG DẪN 2: GÓC THƯ TAY ===
+@app.route("/thu-tay")
+def letters():
+    return render_template("letters.html", your_name=YOUR_NAME, her_name=HER_NAME)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
